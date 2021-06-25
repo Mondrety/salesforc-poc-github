@@ -1,0 +1,69 @@
+# GitLab CI/CD Pipeline for deploying Customer360 code changes using Salesforce DX
+#
+# Run these commands before executing any build jobs,
+# such as to install dependencies and set environment variables
+#
+before_script:
+    - openssl rsa -in assets/server.key.enc -out assets/server.key -passin pass:$SERVER_KEY_PASSWORD
+    # Install jq, a json parsing library
+    - apt update && apt -y install jq
+    # Setup SFDX environment variables
+    # https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_cli_env_variables.htm
+    - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+    - export SFDX_AUTOUPDATE_DISABLE=false
+    - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+    - export SFDX_DOMAIN_RETRY=600
+    - export SFDX_LOG_LEVEL=DEBUG
+    # Install Salesforce CLI
+    - mkdir sfdx
+    - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
+    - './sfdx/install'
+    - export PATH=./sfdx/$(pwd):$PATH
+    # Output CLI version and plug-in information
+    - sfdx update
+    - sfdx --version
+    - sfdx plugins --core
+
+################################################################################################################    
+# Define the stages of our pipeline
+
+stages: 
+    - mergerequest-validation
+    - merge-validation
+
+################################################################################################################   
+   
+# Stage 1 -- Validate against sandbox for mergerequest
+
+deploymentvalidation:
+    stage: mergerequest-validation
+    before_script:
+        - sh ./replaceUsername.sh
+    script:
+        - echo "in mergerequest-validation for develop branch" 
+        # Authenticate to the sandbox using the server key....
+        - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
+        - sfdx force:org:display -u $SF_USERNAME
+        - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME --sourcepath force-app
+    rules:
+        - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+
+
+################################################################################################################
+# Stage 2 -- Validate and deploy in sandbox on merge for develop branch
+
+merge-validation:
+    stage: merge-validation
+    before_script:
+        - sh ./replaceUsername.sh
+    script:
+        - echo "in merge-validation develop branch (QA)" 
+         # Authenticate to the sandbox using the server key
+        - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
+        - sfdx force:org:display -u $SF_USERNAME
+        - sfdx force:source:deploy --testlevel RunLocalTests -u $SF_USERNAME --sourcepath force-app
+    environment:
+        name: devops
+        url: https://bacustomer360--devops.my.salesforce.com  
+    only:
+        - main

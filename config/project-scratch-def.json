@@ -1,0 +1,55 @@
+{
+  "orgName": "British Airways PLC",
+  "edition": "developer",
+  "features": ["ServiceCloud","Chatbot","Communities","Knowledge","LightningServiceConsole","LiveMessage","LiveAgent","Sites"],
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "securitySettings": {
+            "passwordPolicies": {
+                "enableSetPasswordInApi": true
+            }
+        },
+        "mobileSettings": {
+            "enableS1EncryptedStoragePref2": false
+        },
+	"entitlementSettings": {
+        	"enableEntitlements": true,
+		"enableEntitlementVersioning": true,
+		"enableMilestoneFeedItem": true
+   	},
+	"omniChannelSettings": {
+          	"enableOmniChannel": true
+        },
+	"caseSettings": {
+		"enableCaseFeed": true,
+		"emailToCase": {
+			"enableEmailToCase": true
+			}
+	},
+	"botSettings": {
+		"enableBots": true
+
+	},
+    "communitiesSettings": {
+        "enableNetworksEnabled" : true,
+		"enableUnsupportedBrowserModalPref": true,
+		"enableCommunityWorkspaces": true
+	},
+    "liveAgentSettings": {
+		"enableLiveAgent": true
+	},
+	"knowledgeSettings": {
+		"enableKnowledge": true,
+		"enableLightningKnowledge": true,
+		"showValidationStatusField":true
+	},
+	"surveySettings": {
+		"enableSurvey": true,
+		"enableSurveyOwnerCanManageResponse": true
+	}
+    }
+}
+
+

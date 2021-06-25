@@ -1,0 +1,1 @@
+sed -i 's/<executionUser>vidhyalakshmi.k@ba.com.bisdev</executionUser>/<executionUser>vidhyalakshmi.k@ba.com.devops</executionUser>/' C:\Users\n502846\salesforce-poc\force-app\main\default\authproviders\AwsAuthProvider.authprovider-meta.xml
