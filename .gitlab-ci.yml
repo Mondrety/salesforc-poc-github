@@ -65,4 +65,6 @@ merge-validation:
     environment:
         name: devops
         url: https://bacustomer360--devops.my.salesforce.com  
+    only:
+        - main    
 
