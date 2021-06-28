@@ -40,7 +40,7 @@ deploymentvalidation:
     before_script:
         - sh ./replaceUsername.sh
     script:
-        - echo "in mergerequest-validation for develop branch" 
+        - echo "in mergerequest-validation for develop branch"  
         # Authenticate to the sandbox using the server key....
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sfdx force:org:display -u $SF_USERNAME
@@ -57,7 +57,7 @@ merge-validation:
     before_script:
         - sh ./replaceUsername.sh
     script:
-        - echo "in merge-validation develop branch (QA)" 
+        - echo "in merge-validation develop branch" 
          # Authenticate to the sandbox using the server key
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sfdx force:org:display -u $SF_USERNAME
@@ -65,5 +65,4 @@ merge-validation:
     environment:
         name: devops
         url: https://bacustomer360--devops.my.salesforce.com  
-    only:
-        - main
+
