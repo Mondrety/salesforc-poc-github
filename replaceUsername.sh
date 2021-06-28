@@ -1,2 +1,2 @@
-filepath=\salesforce-poc\force-app\main\default\authproviders\AwsAuthProvider.authprovider-meta.xml
-sed -i "s/<executionUser>vidhyalakshmi.k@ba.com.bisdev<\/executionUser>/<executionUser>vidhyalakshmi.k@ba.com.devops<\/executionUser>/" $filepath
+#filepath=\salesforce-poc\force-app\main\default\authproviders\AwsAuthProvider.authprovider-meta.xml
+sed -i 's/<executionUser>vidhyalakshmi.k@ba.com.bisdev<\/executionUser>/<executionUser>vidhyalakshmi.k@ba.com.devops<\/executionUser>/' -d force-app/main/default/authproviders/AwsAuthProvider.authprovider-meta.xml
