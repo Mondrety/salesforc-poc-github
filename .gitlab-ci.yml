@@ -38,7 +38,7 @@ stages:
 deploymentvalidation:
     stage: mergerequest-validation
     before_script:
-        - sh ./replaceUsername.sh
+        - sh ./deployDestructiveChange.sh
     script:
         - echo "in mergerequest-validation for develop branch"  
         # Authenticate to the sandbox using the server key....
@@ -55,7 +55,7 @@ deploymentvalidation:
 merge-validation:
     stage: merge-validation
     before_script:
-        - sh ./replaceUsername.sh
+        - sh ./deployDestructiveChange.sh
     script:
         - echo "in merge-validation develop branch" 
          # Authenticate to the sandbox using the server key
@@ -64,5 +64,5 @@ merge-validation:
         - sfdx force:source:deploy --testlevel RunLocalTests -u $SF_USERNAME --sourcepath force-app
     environment:
         name: devops
-        url: https://bacustomer360--devops.my.salesforce.com  
+        url: https://bacustomer360--devopspoc.my.salesforce.com  
 
