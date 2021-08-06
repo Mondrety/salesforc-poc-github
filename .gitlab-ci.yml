@@ -37,32 +37,6 @@ stages:
 
 deploymentvalidation:
     stage: mergerequest-validation
-    before_script:
-        - sh ./deployDestructiveChange.sh
     script:
-        - echo "in mergerequest-validation for develop branch"  
-        # Authenticate to the sandbox using the server key....
-        - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
-        - sfdx force:org:display -u $SF_USERNAME
-        - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME --sourcepath force-app
-    rules:
-        - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
-
-
-################################################################################################################
-# Stage 2 -- Validate and deploy in sandbox on merge for develop branch
-
-merge-validation:
-    stage: merge-validation
-    before_script:
         - sh ./deployDestructiveChange.sh
-    script:
-        - echo "in merge-validation develop branch" 
-         # Authenticate to the sandbox using the server key
-        - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
-        - sfdx force:org:display -u $SF_USERNAME
-        - sfdx force:source:deploy --testlevel RunLocalTests -u $SF_USERNAME --sourcepath force-app
-    environment:
-        name: devops
-        url: https://bacustomer360--devopspoc.my.salesforce.com  
 
