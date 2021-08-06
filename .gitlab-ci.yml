@@ -38,5 +38,6 @@ stages:
 deploymentvalidation:
     stage: mergerequest-validation
     script:
+        - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sh ./deployDestructiveChange.sh
 
