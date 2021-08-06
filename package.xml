@@ -6,6 +6,10 @@
     <name>CustomObject</name>
   </types>
   <types>
+    <members>SampleObject__c.SampleField__c</members>
+    <name>CustomField</name>
+  </types>
+  <types>
     <members>SampleClass</members>
     <name>ApexClass</name>
   </types
