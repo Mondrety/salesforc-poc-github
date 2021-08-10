@@ -40,5 +40,5 @@ deploymentvalidation:
     script:
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
        # - sh ./deployDestructiveChange.sh
-        - sfdx force:mdapi:deploy -d . -u $SF_USERNAME -l NoTestRun
+        - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
 
