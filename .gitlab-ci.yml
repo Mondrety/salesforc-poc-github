@@ -9,20 +9,18 @@ before_script:
     - apt update && apt -y install jq
     # Setup SFDX environment variables
     # https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_cli_env_variables.htm
-    - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
-    #- export SFDX_AUTOUPDATE_DISABLE=false
+    - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+    - export SFDX_AUTOUPDATE_DISABLE=false
     - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
     - export SFDX_DOMAIN_RETRY=600
     - export SFDX_LOG_LEVEL=DEBUG
     # Install Salesforce CLI
     - mkdir sfdx
     - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
-    - export PATH=./sfdx/bin:$PATH
-    #- './sfdx/install'
-    #- export PATH=./sfdx/$(pwd):$PATH
-   
+    - './sfdx/install'
+    - export PATH=./sfdx/$(pwd):$PATH
     # Output CLI version and plug-in information
-    #- sfdx update
+    - sfdx update
     - sfdx --version
     - sfdx plugins --core
 
@@ -40,12 +38,6 @@ stages:
 deploymentvalidation:
     stage: mergerequest-validation
     script:
-        - echo "in mergerequest-validation for develop branch" 
-        # Authenticate to the sandbox using the server key....
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
-        #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
-        - sfdx force:org:display -u $SF_USERNAME
-        - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME -x manifest/package.xml -w 120
+    #    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
 
-rules:
-        - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "demo"'
