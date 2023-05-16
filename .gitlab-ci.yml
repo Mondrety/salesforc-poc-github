@@ -46,6 +46,5 @@ deploymentvalidation:
         #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         - sfdx force:org:display -u $SF_USERNAME
         - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME -x manifest/package.xml -w 120
-
-rules:
+    rules:
         - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "demo"'
