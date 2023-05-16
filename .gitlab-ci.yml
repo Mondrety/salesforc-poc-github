@@ -41,5 +41,6 @@ deploymentvalidation:
     stage: mergerequest-validation
     script:
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
-        - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
-
+        #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
+        - sfdx force:org:display -u $SF_USERNAME
+        - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME -x manifest/package.xml -w 120
