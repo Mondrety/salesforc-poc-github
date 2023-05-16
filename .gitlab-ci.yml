@@ -40,10 +40,12 @@ stages:
 deploymentvalidation:
     stage: mergerequest-validation
     script:
+        - echo "in mergerequest-validation for develop branch" 
+        # Authenticate to the sandbox using the server key....
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         - sfdx force:org:display -u $SF_USERNAME
         - sfdx force:source:deploy --checkonly --testlevel RunLocalTests -u $SF_USERNAME -x manifest/package.xml -w 120
 
-#rules:
-        #- if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "demo"'
+rules:
+        - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "demo"'
