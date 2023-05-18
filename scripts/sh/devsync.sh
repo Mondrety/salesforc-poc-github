@@ -7,6 +7,7 @@ git config user.name "Venkata Babi"
 git config user.email "venkatababi.mondrety@ba.com"
 
 git status
+git commit -a
 git fetch
 git status
 
