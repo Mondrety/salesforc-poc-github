@@ -17,7 +17,7 @@ stages:
    
 # Stage 1 -- Validate against sandbox for mergerequest
 
-deploymentvalidation:
+.deploymentvalidation:
     stage: mergerequest-validation
     before_script:
         - openssl rsa -in assets/server.key.enc -out assets/server.key -passin pass:$SERVER_KEY_PASSWORD
