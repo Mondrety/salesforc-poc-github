@@ -30,6 +30,7 @@ before_script:
 stages: 
     - mergerequest-validation
     - merge-validation
+    - repo-maintenance
 
 ################################################################################################################   
    
@@ -40,4 +41,15 @@ deploymentvalidation:
     script:
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
+################################################################################################################   
+
+dev-orgs-maintenance:
+    stage: repo-maintenance
+    script:
+        - chmod +x ./scripts/sh/devsync.sh
+        - ./scripts/sh/devsync.sh
+    rules:
+        - if: '$DAILY_SYNC_JOB == "true"'
+
+
 
