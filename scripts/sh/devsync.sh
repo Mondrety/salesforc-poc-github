@@ -6,7 +6,9 @@ git remote set-url origin https://oauth2:$GITLAB_ACCESS_TOKEN@$project_url
 git config user.name "Venkata Babi"
 git config user.email "venkatababi.mondrety@ba.com"
 
+git status
 git fetch
+git status
 
 git checkout branch1
 git log --no-merges --exit-code origin/demo ^HEAD || git merge --no-ff remotes/origin/demo
