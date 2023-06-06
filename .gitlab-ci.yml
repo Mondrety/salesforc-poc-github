@@ -10,17 +10,19 @@ before_script:
     # Setup SFDX environment variables
     # https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_cli_env_variables.htm
     - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-    - export SFDX_AUTOUPDATE_DISABLE=false
+    #- export SFDX_AUTOUPDATE_DISABLE=false
     - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
     - export SFDX_DOMAIN_RETRY=600
     - export SFDX_LOG_LEVEL=DEBUG
     # Install Salesforce CLI
     - mkdir sfdx
     - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
-    - './sfdx/install'
-    - export PATH=./sfdx/$(pwd):$PATH
+    - export PATH=./sfdx/bin:$PATH
+    #- './sfdx/install'
+    #- export PATH=./sfdx/$(pwd):$PATH
+   
     # Output CLI version and plug-in information
-    - sfdx update
+    #- sfdx update
     - sfdx --version
     - sfdx plugins --core
 
@@ -30,7 +32,7 @@ before_script:
 stages: 
     - mergerequest-validation
     - merge-validation
-    - repo-maintenance
+    #- repo-maintenance
 
 ################################################################################################################   
    
@@ -40,16 +42,13 @@ deploymentvalidation:
     stage: mergerequest-validation
     script:
         - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
-        #- sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
+        - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
 ################################################################################################################   
 
-dev-orgs-maintenance:
-    stage: repo-maintenance
-    script:
-        - chmod +x ./scripts/sh/devsync.sh
-        - ./scripts/sh/devsync.sh
-    rules:
-        - if: '$DAILY_SYNC_JOB == "true"'
-
-
-
+#dev-orgs-maintenance:
+    #stage: repo-maintenance
+    #script:
+        #- chmod +x ./scripts/sh/devsync.sh
+        #- ./scripts/sh/devsync.sh
+    #rules:
+        #- if: '$DAILY_SYNC_JOB == "true"'
