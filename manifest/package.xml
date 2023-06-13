@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Customer360 Package</fullName>
-  <version>51.0</version>
+   <types>
+      <members>SampleClass</members>
+      <name>ApexClass</name>
+    </types>
+  <version>52.0</version>
 </Package>
