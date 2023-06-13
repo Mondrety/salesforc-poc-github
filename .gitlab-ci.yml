@@ -18,10 +18,10 @@ before_script:
     # Install Salesforce CLI
     - mkdir sfdx
     - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
-    - './sfdx/install'
-    - export PATH=./sfdx/$(pwd):$PATH
+    #- './sfdx/install'
+    - export PATH=./sfdx/bin:$PATH
     # Output CLI version and plug-in information
-    - sfdx update
+    #- sfdx update
     - sfdx --version
     - sfdx plugins --core
 
