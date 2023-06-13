@@ -11,10 +11,10 @@ before_script:
     # https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_cli_env_variables.htm
     #- export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
     - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
-    - export SFDX_AUTOUPDATE_DISABLE=false
-    - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-    - export SFDX_DOMAIN_RETRY=600
-    - export SFDX_LOG_LEVEL=DEBUG
+    - export SF_AUTOUPDATE_DISABLE=false
+    - export SF_USE_GENERIC_UNIX_KEYCHAIN=true
+    - export SF_DOMAIN_RETRY=600
+    - export SF_LOG_LEVEL=DEBUG
     # Install Salesforce CLI
     - mkdir sfdx
     - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
