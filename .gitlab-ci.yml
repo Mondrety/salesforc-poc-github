@@ -38,6 +38,7 @@ stages:
 
 deploymentvalidation:
     stage: mergerequest-validation1
+    when: manual
     script:
      #   - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
