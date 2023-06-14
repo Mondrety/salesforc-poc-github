@@ -49,9 +49,10 @@ deploymentvalidation:
      - main
 
     stage: mergerequest-validation2
+    when: manual
     script:
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV 
        - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts
-    when: manual
+    
     only:
      - main
