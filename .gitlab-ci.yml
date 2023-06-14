@@ -45,4 +45,5 @@ deploymentvalidation:
         - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --test-level RunLocalTests
         - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
        # - sf project deploy start --source-dir force-app/main/default/classes --target-org $SF_USERNAME --wait 120 
-
+    only:
+     - main
