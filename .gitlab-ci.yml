@@ -36,7 +36,7 @@ stages:
    
 # Stage 1 -- Validate against sandbox for mergerequest
 
-deploymentvalidation:
+deploymentvalidation1:
     stage: mergerequest-validation1
     when: manual
     script:
@@ -49,6 +49,7 @@ deploymentvalidation:
     only:
      - main
 
+deploymentvalidation2:
     stage: mergerequest-validation2
     when: manual
     script:
