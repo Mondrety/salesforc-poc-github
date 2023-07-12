@@ -42,9 +42,11 @@ deploymentvalidation1:
     script:
      #   - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
+        - test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
        # - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --test-level RunLocalTests
-        - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
+       # local result=$(sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --test-level RunLocalTests  --wait 120)
+        #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
        # - sf project deploy start --source-dir force-app/main/default/classes --target-org $SF_USERNAME --wait 120 
     only:
      - main
@@ -58,3 +60,9 @@ deploymentvalidation2:
     
     only:
      - main
+
+
+        function test_deploy(){
+                local result=$(sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --test-level RunLocalTests  --wait 120)
+                echo result
+        }     
