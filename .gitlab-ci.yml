@@ -56,31 +56,11 @@ deploymentvalidation2:
     when: manual
     script:
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV 
-       - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts
-       - org_username=$SF_USERNAME_BISDEV
-       - test_Apex_Testclasses_Run $org_username
+       - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts --results-dir ./result
+       - ls -ltr
+       #- org_username=$SF_USERNAME_BISDEV
+       #- test_Apex_Testclasses_Run $org_username
     
     only:
      - main
 
-
-        function test_Apex_Testclasses_Run(){
-               # local result=$(sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --test-level RunLocalTests  --wait 120)
-               # echo result
-            mkdir -p ./tests/apex
-
-            # Check if the scripts property in package.json contains key for "test:scratch"
-            local scriptValue=$(jq -r '.scripts["test:scratch"]' < package.json)
-
-            # If no "test:scratch" script property, then add one
-            if [[ -z "$scriptValue" || $scriptValue == null ]]; then
-            local tmp=$(mktemp)
-            jq '.scripts["test:scratch"]="sfdx force:apex:test:run --codecoverage --resultformat junit --wait 10       
-            --outputdir ./tests/apex"' package.json > $tmp
-      mv $tmp package.json
-      echo "added test:scratch script property to package.json" >&2
-      cat package.json >&2
-            fi
-
-
-        }     
