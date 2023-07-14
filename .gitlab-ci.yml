@@ -46,9 +46,10 @@ deploymentvalidation1:
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
         - ls -ltr
-        - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --test-level RunSpecifiedTests --tests RagTest
+        - sf apex run test --class-names RagTest --target-org $SF_USERNAME --code-coverage --output-dir result 
+        #- sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --test-level RunSpecifiedTests --tests RagTest
         - ls -ltr
-        - sf project deploy report --use-most-recent --results-dir result --coverage-formatters json --junit
+        #- sf project deploy report --use-most-recent --results-dir result --coverage-formatters json --junit
        # local result=$(sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --test-level RunLocalTests  --wait 120)
         #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
        # - sf project deploy start --source-dir force-app/main/default/classes --target-org $SF_USERNAME --wait 120 
