@@ -50,6 +50,7 @@ deploymentvalidation1:
         - sf apex run test --class-names RagTestTest  --target-org $SF_USERNAME --code-coverage --output-dir Result --wait 120 
         #- sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --test-level RunSpecifiedTests --tests RagTest
         - ls -ltr
+        - ssmtp ragesh.pathalayi@ba.com <  Result/TestClasses.txt
         #- sf project deploy report --use-most-recent --results-dir result --coverage-formatters json --junit
        # local result=$(sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME --test-level RunLocalTests  --wait 120)
         #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
