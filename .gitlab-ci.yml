@@ -38,7 +38,6 @@ stages:
 
 deploymentvalidation1:
     stage: mergerequest-validation1
-    when: manual
     script:
      #   - sfdx force:auth:jwt:grant -r https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME
         - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
@@ -54,7 +53,7 @@ deploymentvalidation1:
         #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME --wait 120 --ignore-conflicts
        # - sf project deploy start --source-dir force-app/main/default/classes --target-org $SF_USERNAME --wait 120 
     only:
-     - main
+     - schedules
     artifacts:
         when: always
         paths:
@@ -62,7 +61,6 @@ deploymentvalidation1:
 
 deploymentvalidation2:
     stage: mergerequest-validation2
-    when: manual
     script:
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
        - mkdir result
@@ -78,4 +76,5 @@ deploymentvalidation2:
     
     only:
      - main
+     
 
