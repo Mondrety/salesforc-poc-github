@@ -63,7 +63,7 @@ deploymentvalidation2:
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
        - mkdir result
        #- ls -ltr
-       - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts --results-dir result --coverage-formatters json
+       #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts --results-dir result --coverage-formatters json
        #- ls -ltr
        - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunLocalTests  --wait 120 --results-dir resultTestclasses --coverage-formatters json
        #- ls -ltr
