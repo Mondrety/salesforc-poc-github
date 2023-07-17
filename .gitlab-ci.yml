@@ -91,13 +91,13 @@ deploymentvalidation3:
        - TEST_CLASS=$(<Result/TestClasses.txt)
        - echo $TEST_CLASS
        #- echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
-       - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
+       - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
         #- test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
        
        #- echo $TEST_CLASS
-       - sf project deploy validate --tests $TEST_CLASS  --target-org $SF_USERNAME --code-coverage --output-dir Result --wait 120
+       - sf project deploy validate --tests $TEST_CLASS  --target-org $SF_USERNAME_BISDEV --code-coverage --output-dir Result --wait 120
     
     only:
      - main
