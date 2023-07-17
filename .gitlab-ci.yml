@@ -62,6 +62,7 @@ deploymentvalidation1:
 deploymentvalidation2:
     stage: mergerequest-validation2
     script:
+       - echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
        - mkdir result
        #- ls -ltr
