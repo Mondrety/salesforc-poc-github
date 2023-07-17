@@ -65,6 +65,7 @@ deploymentvalidation2:
     
     script:
        - cat Result/TestClasses.txt
+       - TEST_CLASS<cat Result/TestClasses.txt
        - echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
         #- test_deploy 
