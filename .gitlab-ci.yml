@@ -64,17 +64,13 @@ deploymentvalidation2:
     stage: mergerequest-validation2
     script:
        - echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
-       - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
-       - mkdir result
-       #- ls -ltr
-       #- sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --wait 120 --ignore-conflicts --results-dir result --coverage-formatters json
-       #- ls -ltr
-       - sf apex run test --manifest manifest/package.xml  --target-org $SF_USERNAME_BISDEV --code-coverage --output-dir Result --wait 120
-       - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunLocalTests  --wait 120 --results-dir resultTestclasses --coverage-formatters json
-       #- ls -ltr
-       - ls -ltr
-       #- org_username=$SF_USERNAME_BISDEV
-       #- test_Apex_Testclasses_Run $org_username
+       - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
+        #- test_deploy 
+    ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
+        #- mkdir result
+       - TEST_CLASS<$(cat Result/TestClasses.txt)
+       - cat filename | 
+       - sf apex run test --class-names $TEST_CLASS  --target-org $SF_USERNAME --code-coverage --output-dir Result --wait 120
     
     only:
      - main
