@@ -69,6 +69,7 @@ deploymentvalidation2:
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
        - TEST_CLASS=(cat Result/TestClasses.txt)
+       - echo $TEST_CLASS
        - sf apex run test --class-names $TEST_CLASS  --target-org $SF_USERNAME --code-coverage --output-dir Result --wait 120
     
     only:
