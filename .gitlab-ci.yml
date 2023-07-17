@@ -62,13 +62,16 @@ deploymentvalidation1:
 
 deploymentvalidation2:
     stage: mergerequest-validation2
+    variables:
+        - $TEST_CLASS=(cat Result/TestClasses.txt)
     script:
+       - echo $TEST_CLASS
        - echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY --jwt-key-file assets/server.key --username $SF_USERNAME
         #- test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
-       - TEST_CLASS=(cat $Result/TestClasses.txt)
+       
        - echo $TEST_CLASS
        - sf apex run test --class-names $TEST_CLASS  --target-org $SF_USERNAME --code-coverage --output-dir Result --wait 120
     
