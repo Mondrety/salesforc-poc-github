@@ -55,6 +55,10 @@ deploymentvalidation1:
        # - sf project deploy start --source-dir force-app/main/default/classes --target-org $SF_USERNAME --wait 120 
     only:
      - main
+    artifacts:
+        when: always
+        paths:
+            - Result
 
 deploymentvalidation2:
     stage: mergerequest-validation2
