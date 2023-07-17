@@ -24,6 +24,7 @@ before_script:
     #- sfdx update
     - sfdx --version
     - sfdx plugins --core
+    - sudo apt-get install mailutils
 
 ################################################################################################################    
 # Define the stages of our pipeline
