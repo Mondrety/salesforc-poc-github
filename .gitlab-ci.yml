@@ -92,6 +92,10 @@ deploymentvalidation3:
        #- TEST_CLASS<cat Result/TestClasses.txt
        - TEST_CLASS=$(<Result/TestClasses.txt)
        - echo $TEST_CLASS
+       #- du -b TestClasses.txt
+       - if (TEST_CLASS == '') {
+       - echo "null values"}
+
        #- echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
         #- test_deploy 
