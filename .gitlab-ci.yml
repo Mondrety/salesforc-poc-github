@@ -93,8 +93,8 @@ deploymentvalidation3:
        - TEST_CLASS=$(<Result/TestClasses.txt)
        - echo $TEST_CLASS
        #- du -b TestClasses.txt
-       - if (TEST_CLASS == '') {
-       - echo "null values"}
+       #- if (TEST_CLASS == '') {
+       #- echo "null values"}
 
        #- echo "hello world" | mail -s "a subject" ragesh.pathalayi@ba.com
        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
@@ -103,7 +103,12 @@ deploymentvalidation3:
         #- mkdir result
        
        #- echo $TEST_CLASS
+       - if [ TEST_CLASS == '' ]; then
+       - echo "not values"
        - sf project deploy validate --tests $TEST_CLASS --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunSpecifiedTests --wait 120
+       - else
+        - echo "null values"
+       - fi
 
     rules:
         - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
