@@ -105,7 +105,7 @@ deploymentvalidation3:
         - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
 
     
-    only:
-     - main
+    #only:
+     #- main
      
 
