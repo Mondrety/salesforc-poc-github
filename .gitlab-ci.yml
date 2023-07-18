@@ -85,7 +85,7 @@ deploymentvalidation2:
 
 deploymentvalidation3:
     stage: mergerequest-validation3
-    when: manual
+    #when: manual
     
     script:
        #- cat Result/TestClasses.txt > TEST_CLASS
