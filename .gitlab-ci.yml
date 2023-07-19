@@ -104,6 +104,7 @@ deploymentvalidation3:
        - names='Testclass'
        - echo $names
        #- echo $TEST_CLASS
+       - if ["$names"=="Testclass"]; then echo "In side if"; else echo "outside if"; fi
        - if [ $TEST_CLASS=="" ]; then
        - echo "null values"
        - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV
