@@ -104,12 +104,12 @@ deploymentvalidation3:
        
        #- echo $TEST_CLASS
        - if [ $TEST_CLASS == "" ]; then
-       - echo "null values"
-       - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV
-       - else
-        - echo "not values"
-        - sf project deploy validate --tests $TEST_CLASS --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunSpecifiedTests --wait 120
-       - fi
+        echo "null values"
+        sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV
+        else
+         echo "not values"
+         sf project deploy validate --tests $TEST_CLASS --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunSpecifiedTests --wait 120
+        fi
 
     rules:
         - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
