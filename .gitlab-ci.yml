@@ -103,7 +103,7 @@ deploymentvalidation3:
         #- mkdir result
        
        #- echo $TEST_CLASS
-       - if [ TEST_CLASS == "" ]; then
+       - if [ $TEST_CLASS == "" ]; then
        - echo "null values"
        - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV
        - else
