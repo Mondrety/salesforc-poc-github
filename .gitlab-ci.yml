@@ -2,7 +2,7 @@
 #
 # Run these commands before executing any build jobs,
 # such as to install dependencies and set environment variables
-#
+#~
 before_script:
     - openssl rsa -in assets/server.key.enc -out assets/server.key -passin pass:$SERVER_KEY_PASSWORD
     # Install jq, a json parsing library
