@@ -92,6 +92,8 @@ deploymentvalidation3:
        #- TEST_CLASS<cat Result/TestClasses.txt
        - TEST_CLASS=$(<Result/TestClasses.txt)
        - echo $TEST_CLASS
+       - PackagexmlData=$(<manifest/package.xml)
+       - echo $PackagexmlData
        #- du -b TestClasses.txt
        #- if (TEST_CLASS == '') {
        #- echo "null values"}
@@ -101,10 +103,10 @@ deploymentvalidation3:
         #- test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
-       - names='Testclass'
-       - echo $names
+       #- names='Testclass'
+       #- echo $names
        #- echo $TEST_CLASS
-       - if [ "$names" == "Testclass" ]; then echo "In side if"; else echo "outside if"; fi
+       #- if [ "$names" == "Testclass" ]; then echo "In side if"; else echo "outside if"; fi
        - if [ "$TEST_CLASS" == "" ]; then
        - echo "null values"
        - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level NoTestRun;
