@@ -121,7 +121,7 @@ deploymentvalidation3:
      #- main
 
 deployyment1: 
-    stage: mergerequest-validation2
+    stage: mergerequest-validation-deploy4
     when: manual
     script:
         - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
