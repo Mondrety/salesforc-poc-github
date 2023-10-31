@@ -5,6 +5,7 @@ private class RagTestClass {
         Test.startTest();
         // Insert book
         insert acc;
+        System.debug('acc---->');
         Test.stopTest();
         System.assertEquals('Account Test', acc.Name);
     }
