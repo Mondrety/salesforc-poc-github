@@ -33,6 +33,7 @@ stages:
     - mergerequest-validation1
     - mergerequest-validation2
     - mergerequest-validation3
+    - mergerequest-validation-deploy4
 
 ################################################################################################################ - 
    
@@ -85,7 +86,7 @@ deploymentvalidation2:
 
 deploymentvalidation3:
     stage: mergerequest-validation3
-    when: manual
+    #when: manual
     
     script:
        #- cat Result/TestClasses.txt > TEST_CLASS
@@ -118,5 +119,12 @@ deploymentvalidation3:
     
     #only:
      #- main
-     
 
+deployyment1: 
+    stage: mergerequest-validation2
+    when: manual
+    script:
+        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
+        - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --tests RagTestClass --test-level RunSpecifiedTests
+    only:
+     - main
