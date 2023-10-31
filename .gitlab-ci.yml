@@ -101,8 +101,8 @@ deploymentvalidation3:
         #- test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
-       - names = "Test class"
-       - echo $names
+       #- names = "Test class"
+       #- echo $names
        #- echo $TEST_CLASS
        - if [ $TEST_CLASS == "" ]; then
         echo "null values"
