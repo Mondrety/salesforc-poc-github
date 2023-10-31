@@ -6,7 +6,7 @@ private class RagTestClass {
         // Insert book
         acc.RecordTypeId = '01226000001DEITAA4';
         insert acc;
-        System.debug('acc---->');
+        //System.debug('acc---->');
         Test.stopTest();
         System.assertEquals('Account Test', acc.Name);
     }
