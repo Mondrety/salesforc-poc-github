@@ -33,6 +33,7 @@ stages:
     - mergerequest-validation1
     - mergerequest-validation2
     - mergerequest-validation3
+    - mergerequest-validation-deploy4
 
 ################################################################################################################ - 
    
@@ -90,8 +91,8 @@ deploymentvalidation3:
     script:
        #- cat Result/TestClasses.txt > TEST_CLASS
        #- TEST_CLASS<cat Result/TestClasses.txt
-       - TEST_CLASS=$(<Result/TestClasses.txt)
-       - echo $TEST_CLASS
+       #- TEST_CLASS=$(<Result/TestClasses.txt)
+       #- echo $TEST_CLASS
        #- du -b TestClasses.txt
        #- if (TEST_CLASS == '') {
        #- echo "null values"}
@@ -101,16 +102,16 @@ deploymentvalidation3:
         #- test_deploy 
     ##    - sfdx force:mdapi:deploy -d manifest -u $SF_USERNAME -l NoTestRun
         #- mkdir result
-       - names = "Test class"
-       - echo $names
+       #- names = "Test class"
+       #- echo $names
        #- echo $TEST_CLASS
-       - if [ $TEST_CLASS == "" ]; then
-        echo "null values"
-        sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV
-        else
-         echo "not values"
-         sf project deploy validate --tests $TEST_CLASS --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunSpecifiedTests --wait 120
-        fi
+       #- if [ $TEST_CLASS == "" ]; then
+        #echo "null values"
+       - sf project deploy validate --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --tests RagTestClass --test-level RunSpecifiedTests
+        #else
+        # echo "not values"
+         #sf project deploy validate --tests $TEST_CLASS --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --test-level RunSpecifiedTests --wait 120
+        #fi
 
     rules:
         - if: '($CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/feature\//) || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ (/hotfix\//)) && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
@@ -118,5 +119,12 @@ deploymentvalidation3:
     
     #only:
      #- main
-     
 
+deployyment1: 
+    stage: mergerequest-validation-deploy4
+    when: manual
+    script:
+        - sf org login jwt --instance-url https://test.salesforce.com --client-id $SF_CONSUMER_KEY_BISDEV --jwt-key-file assets/server.key --username $SF_USERNAME_BISDEV
+        - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --tests RagTestClass --test-level RunSpecifiedTests
+    only:
+     - main
