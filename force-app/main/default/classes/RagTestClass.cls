@@ -7,6 +7,7 @@ private class RagTestClass {
         acc.RecordTypeId = '01226000001DEITAA4';
         insert acc;
         //System.debug('acc---->');
+        
         Test.stopTest();
         System.assertEquals('Account Test', acc.Name);
     }
