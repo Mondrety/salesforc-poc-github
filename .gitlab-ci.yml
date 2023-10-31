@@ -53,4 +53,5 @@ deployyment:
         - sf project deploy start --manifest manifest/package.xml --target-org $SF_USERNAME_BISDEV --tests RagTestClass --test-level RunSpecifiedTests --ignore-conflicts
         - Branch_Name = $BRANCH
     only:
-        - Branch_Name
+        - echo "Enter"
+        - "$Branch_Name"
